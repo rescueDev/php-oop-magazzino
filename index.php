@@ -30,26 +30,40 @@
 <body>
     <?php
 
+
+    //Magazzino
     class Magazzino
     {
         public $nome;
         public $location;
         public $prodotti;
 
-        public function __construct($nome, $location)
+        public function __construct($nome, $location = 'Sconosciuta')
         {
             $this->nome = $nome;
             $this->location = $location;
         }
 
+        //Metodo di output attributo location di magazzino
         public function magLocation()
         {
             echo 'Funzione Location:'
                 . $this->location
                 . '<br>';
         }
+
+        //Metodo di output attributi magazzino
+        public function outputText()
+        {
+            echo 'Magazzino: '
+                . $this->nome
+                . ' ' . $this->location
+                . ' ' . $this->prodotti
+                . '<br>';
+        }
     }
 
+    //Prodotto
     class Prodotto
     {
         public $nome;
@@ -61,17 +75,28 @@
             $this->nome = $nome;
             $this->peso = $peso;
         }
+        //metodo per sostituire prezzo NULL con Sconosciuto
+        public function checkNullPrice()
+        {
+            if (!$this->prezzo) {
+                $this->prezzo = 'Sconosciuto';
+            }
+        }
     }
+
 
     // Prima istanza di Magazzino
     $magazzino = new Magazzino('Amazon', 'Bergamo');
 
     //Inserisco Array di prodotti
     $magazzino->prodotti = ['aspirapolvere', 'microonde', 'mascherine'];
+    $magazzino->outputText();
+    echo "<br>";
+
 
     //Prima istanza di Prodotto
     $prodotto = new Prodotto('TV', 16);
-
+    $prodotto->checkNullPrice();
     /* provo a mettere $prodotto dentro $magazzino */
     $magazzino->prodotto = $prodotto;
     var_dump($magazzino);
@@ -106,14 +131,6 @@
     $prodotto2->prezzo = 1000;
 
     var_dump($prodotto2);
-
-
-
-
-
-
-
-
 
     ?>
 </body>
